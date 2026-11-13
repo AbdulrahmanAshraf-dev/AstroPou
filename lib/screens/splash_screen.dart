@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'astropou_splash_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -99,6 +100,11 @@ class SplashScreen extends StatelessWidget {
                         child: InkWell(
                           borderRadius: BorderRadius.circular(32),
                           onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const AstroPouSplashScreen(),
+                              ),
+                            );
                           },
                           child: const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20.0),
