@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'home_screen.dart';
+import '../widgets/main_shell.dart';
 
 class AstroPouSplashScreen extends StatefulWidget {
   const AstroPouSplashScreen({super.key});
@@ -154,9 +154,9 @@ class _AstroPouSplashScreenState extends State<AstroPouSplashScreen> {
                     child: InkWell(
                       borderRadius: BorderRadius.circular(32),
                       onTap: () {
-                        Navigator.of(context).push(
+                        Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (context) => const HomeScreen(),
+                            builder: (context) => const MainShell(),
                           ),
                         );
                       },

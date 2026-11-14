@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:astro_pou/main.dart';
 import 'package:astro_pou/screens/astropou_splash_screen.dart';
 import 'package:astro_pou/screens/home_screen.dart';
+import 'package:astro_pou/widgets/main_shell.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -165,7 +166,7 @@ void main() {
     expect(find.text("Keep it up! Your health looks good! 🚀"), findsOneWidget);
   });
 
-  testWidgets('Tapping Explore on AstroPou screen navigates to Home screen', (WidgetTester tester) async {
+  testWidgets('Tapping Explore on AstroPou screen navigates to MainShell with Home tab', (WidgetTester tester) async {
     await tester.pumpWidget(
       const MaterialApp(
         home: AstroPouSplashScreen(),
@@ -176,7 +177,88 @@ void main() {
     await tester.pump(const Duration(milliseconds: 400));
     await tester.pump(const Duration(milliseconds: 400));
 
+    // MainShell should be visible showing HomeScreen content
     expect(find.text('Good Morning, Commander'), findsOneWidget);
     expect(find.text('Mission Day 99'), findsOneWidget);
+
+    // Nav bar labels should all be present
+    expect(find.text('Home'), findsOneWidget);
+    expect(find.text('Charts'), findsOneWidget);
+    expect(find.text('Messages'), findsOneWidget);
+    expect(find.text('Profile'), findsOneWidget);
+  });
+
+  testWidgets('MainShell bottom nav bar switches between tabs', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: MainShell(),
+      ),
+    );
+
+    // Home tab is selected by default
+    expect(find.text('Good Morning, Commander'), findsOneWidget);
+
+    // Tap Charts tab
+    await tester.tap(find.text('Charts'));
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(find.text('Ophiuchus'), findsOneWidget);
+    expect(find.text('Astronaut Health Constellation'), findsOneWidget);
+    expect(find.text('Sleep Duration'), findsOneWidget);
+
+    // Tap Messages tab
+    await tester.tap(find.text('Messages'));
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(find.text('Messages & Reminders'), findsOneWidget);
+
+    // Tap Profile tab
+    await tester.tap(find.text('Profile'));
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(find.text('Astronaut Profile'), findsOneWidget);
+
+    // Tap Home tab to return
+    await tester.tap(find.text('Home'));
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(find.text('Good Morning, Commander'), findsOneWidget);
+  });
+
+  testWidgets('Ophiuchus ChartsScreen displays constellation stars and updates metric detail card on tap', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: MainShell(),
+      ),
+    );
+
+    // Navigate to Charts tab
+    await tester.tap(find.text('Charts'));
+    await tester.pump(const Duration(milliseconds: 300));
+
+    expect(find.text('Ophiuchus'), findsOneWidget);
+    expect(find.text('Sleep Duration'), findsOneWidget);
+    expect(find.text('7h 42m'), findsWidgets);
+
+    // Tap on Heart Rate pill (72 BPM)
+    await tester.tap(find.text('72 BPM').first);
+    await tester.pump(const Duration(milliseconds: 500));
+
+    // The detail card should now display Heart Rate details
+    expect(find.text('Heart Rate'), findsOneWidget);
+    expect(find.text('72 BPM'), findsWidgets);
+    expect(find.text('AVG. (7D)'), findsWidgets);
+    expect(find.text('7-DAY TRAJECTORY'), findsWidgets);
+
+    // Tap on Heart Rate pill again to deselect
+    await tester.tap(find.text('72 BPM').first);
+    await tester.pump(const Duration(milliseconds: 500));
+
+    // Empty state should now be displayed
+    expect(find.text('Select a Star to Inspect Vitals'), findsOneWidget);
+
+    // Tap on Mood (8.8/10) to select it
+    await tester.tap(find.text('8.8/10').first);
+    await tester.pump(const Duration(milliseconds: 500));
+
+    // Detail card displays Mood details
+    expect(find.text('Mood & Morale'), findsOneWidget);
+    expect(find.text('8.8/10'), findsWidgets);
   });
 }
