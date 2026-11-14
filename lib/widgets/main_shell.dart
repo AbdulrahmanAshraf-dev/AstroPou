@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../screens/home_screen.dart';
 import '../screens/charts_screen.dart';
 import '../screens/messages_screen.dart';
-import '../screens/profile_screen.dart';
 
 class MainShell extends StatefulWidget {
   const MainShell({super.key});
@@ -18,7 +17,6 @@ class _MainShellState extends State<MainShell> {
     HomeScreen(),
     ChartsScreen(),
     MessagesScreen(),
-    ProfileScreen(),
   ];
 
   void _onTabSelected(int index) {
@@ -57,7 +55,6 @@ const List<_NavItem> _navItems = [
   _NavItem(Icons.home_rounded, 'Home'),
   _NavItem(Icons.bar_chart_rounded, 'Charts'),
   _NavItem(Icons.notifications_rounded, 'Messages'),
-  _NavItem(Icons.person_rounded, 'Profile'),
 ];
 
 class _SpaceNavBar extends StatelessWidget {
