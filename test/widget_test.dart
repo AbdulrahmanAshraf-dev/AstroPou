@@ -261,4 +261,24 @@ void main() {
     expect(find.text('Mood & Morale'), findsOneWidget);
     expect(find.text('8.8/10'), findsWidgets);
   });
+
+  testWidgets('Messages & Reminders screen displays all 4 cards and details', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: MainShell(),
+      ),
+    );
+
+    // Tap Messages tab
+    await tester.tap(find.text('Messages'));
+    await tester.pump(const Duration(milliseconds: 300));
+
+    expect(find.text('Messages & Reminders'), findsOneWidget);
+    expect(find.text('Updates, reminders, and messages from Earth.'), findsOneWidget);
+    expect(find.text('Daily Motivation'), findsOneWidget);
+    expect(find.text('Health Reminder'), findsOneWidget);
+    expect(find.text('Message from Earth'), findsOneWidget);
+    expect(find.text('Health Alert'), findsOneWidget);
+    expect(find.text('Time for some hydration! 💧'), findsOneWidget);
+  });
 }

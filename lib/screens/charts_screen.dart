@@ -214,31 +214,6 @@ class _ChartsScreenState extends State<ChartsScreen>
                   // Top Header: Back Arrow, Title & Subtitle
                   Row(
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          if (Navigator.canPop(context)) {
-                            Navigator.pop(context);
-                          }
-                        },
-                        child: Container(
-                          width: 36,
-                          height: 36,
-                          decoration: BoxDecoration(
-                            color: const Color(0x33FFFFFF),
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: Colors.white.withAlpha(40),
-                              width: 1,
-                            ),
-                          ),
-                          child: const Icon(
-                            Icons.arrow_back_ios_new_rounded,
-                            color: Color(0xFFDFE1F4),
-                            size: 16,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
                       const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
