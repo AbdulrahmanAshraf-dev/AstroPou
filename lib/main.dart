@@ -26,6 +26,8 @@ class AstroPouApp extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.dark,
         scaffoldBackgroundColor: Colors.black,
+        focusColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         useMaterial3: true,
       ),
       home: const SplashScreen(),
